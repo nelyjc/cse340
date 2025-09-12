@@ -1,198 +1,196 @@
-/******* Change Box Model ***************/
+/******* Box Model *******/
 *,
 *:before,
 *:after {
   box-sizing: border-box;
 }
-/* Base styles - Mobile first */
+
+/* Body */
 body {
   margin: 0;
   font-family: Arial, Helvetica, sans-serif;
   line-height: 1.5;
-  color: #333;
+  color: #000000;
   background: url('/images/site/checkerboard.jpg') repeat;
+  display: flex;
+  justify-content: center;
+  padding: 1rem;
   min-height: 100vh;
 }
 
-/* Checkerboard background for large screens */ 
-@media (min-width: 1200px) {
-  #wrapper {
-    max-width: 1200px;
-    margin: 40px auto;
-    background: #fff;
-    box-shadow: 0 4px 24px rgba(0,0,0,0.12);
-    border-radius: 12px;
-    padding: 32px;
-  }
+/* Wrapper / Card */
+#wrapper {
+  background: #ffffff;       /* white card */
+  width: 100%;
+  max-width: 1200px;
+  border-radius: 12px;
+  padding: 1rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.12);
 }
 
-
-
-/* Header styles */
+/* Header */
 header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 2rem;
+  padding: 1rem 0;
 }
 
-h1, h2{
+h1, h2 {
   margin: 0;
   font-size: 2rem;
   font-weight: bold;
   color: #000000;
 }
 
+.returntohome a, .myaccount a {
+  text-decoration: none;
+  font-weight: bold;
+}
+
 .returntohome a {
-  text-decoration: none;
   font-size: 2rem;
-  color: rgb(0, 0, 0);
-  font-weight: bold;
+  color: #000000;
 }
+
 .myaccount a {
-  font-size: 0.9rem;
+  font-size: 1rem;
+  color: #000000;
   text-align: right;
-  color: rgb(0, 0, 0);
-  text-decoration: none;
-  font-weight: bold;
 }
 
-/* Navigation styles */
-nav ul {
-  list-style: none;
-  padding: 5px;
-  margin: 0;
-  display: flex;
-  gap: 10rem;
-  color: rgb(255, 255, 255);
-  font-size: 1.2rem;
-  font-weight: bold;
-  text-transform: uppercase;
-  background: #111111;
-  border-radius: 5px;
-
-}
-
-nav a {
-  text-decoration: none;
-  color: 
-  #ffffff;
-}
-
+/* Navigation */
 nav {
   background: #111111;
   padding: 0.5rem;
   border-radius: 5px;
+  margin-bottom: 1rem;
 }
 
-/* Main content styles */
-
-main {
-  padding: 1rem;
-  max-width: 1200px;
-  margin: 0 auto;
-
-}
-
-
-.hero {
-
-  min-height: 350px;
-  margin-bottom: 2rem;
-  overflow: hidden;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-  background: #f4f4f4;
+nav ul {
+  list-style: none;
+  padding: 10px;
+  margin: 10px;
   display: flex;
-  flex-direction: column;
-  position: relative;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+  font-weight: bold;
+  color: #ffffff;
+
 }
 
-.hero img {
-  width: 100%;
-  height: 350px;
+nav a {
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 1.2rem;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+/* Main */
+main {
+  padding: 1rem 0;
+}
+
+/* Hero Section */
+.hero {
+  position: relative;
+  width: auto;
+  height: 60vh;                   /* responsive height */
   max-height: 450px;
-  display: block;
-  margin: 0 auto;
-  border-radius: 8px 8px 0 0;
-  object-fit: cover;
-  object-position: center;
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 2rem;
+  background: url('/images/vehicles/delorean.jpg') center center/cover no-repeat;
   position: relative;
-  opacity: 0.95;
-  transform: scale(1.08);
+  min-height: 350px;
+  max-height: 450px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
 }
 
+/* Hero Text Below Image */
 .hero-text {
   position: absolute;
-  top: 20%;
+  top: 15%;
   left: 10%;
-  background: rgba(255,255,255,0.8);
-  padding: 1rem;
-  border-radius: 8px;
+  background: rgba(255,255,255,0.85);
+  padding: 2rem 3rem;
+  border-radius: 12px;
   text-align: left;
-  
+  color: #000000;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+  min-width: 260px;
+  max-width: 400px;
+  z-index: 2;
 }
 
 .hero-text h3 {
-  color: rgb(0, 255, 255);
   margin: 0 0 0.5rem;
   font-size: 1.5rem;
   font-weight: bold;
+  color: #000000;
 }
 
-.btn {
+.hero-text p {
+  margin: 0 0 1rem;
+  font-size: 1rem;
+  color: #111111;
+}
+
+.hero-text .btn {
   display: inline-block;
-  background:rgb(0, 255, 255);
-  color: white;
+  background: #00cccc;   
+  color: #ffffff;
   padding: 0.5rem 1rem;
   text-decoration: none;
   border-radius: 5px;
+  font-weight: bold;
 }
-/* Upgrades and Reviews section */
 
+/* Upgrades and Reviews */
 .upgrades-reviews {
   display: flex;
-  flex-direction:row;
+  flex-direction: column;
   gap: 2rem;
-  margin-top: 10rem;
-  
+  margin-top: 2rem;
+}
+
+.upgrades, .reviews {
+  flex: 1;
+ 
 }
 
 .upgrade-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: 1fr 1fr;
   gap: 1rem;
   margin-top: 1rem;
-  text-align: center;
-
 }
 
 .upgrade-grid div {
-  text-align: center;
+  background: #79d5db;
+  color: #000000;
   padding: 1rem;
-  border: 1px solid #ddd;
   border-radius: 5px;
-  background: rgb(121, 213, 219);
+  border: 1px solid #ddd;
+  text-align: center;
 }
 
 .upgrade-grid img {
   width: 100px;
-  display: block;
   margin: 0 auto 0.5rem;
 }
 
-.reviews ul {
-  padding-left: 1rem;
-  
-}
-
-/* Footer styles */
+/* Footer */
 footer {
   text-align: center;
   padding: 1rem;
   background: #f4f4f4;
   margin-top: 2rem;
-  font-weight: bold
+  font-weight: bold;
 }
 
 /* Large screen layout */
@@ -202,31 +200,33 @@ footer {
     justify-content: space-between;
   }
 
-  .upgrades, .reviews {
-    flex: 1;
-    margin: 0 1rem;
-
-  }
-
   .upgrade-grid {
     grid-template-columns: repeat(2, 1fr);
-    gap: 1rem;
-    margin-top: 1rem;
+    gap: 1.5rem;
+  }
+
+  .upgrade-grid div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     text-align: center;
   }
 
-  .hero-img {
-    max-width: 100%;
-    height: auto;
-    border-radius: 8px; 
+  .upgrade-grid img {
+    margin: 0 auto 0.5rem;
+    display: block;
   }
 
   .hero-text {
-    top: 30%;
-    left: 15%;
-    background: rgba(255,255,255,0.8);
-    padding: 1rem;
-    border-radius: 8px;
     text-align: left;
+    padding: 2rem;
+  }
+}
+
+@media (min-width: 1200px) {
+  #wrapper {
+    padding: 2rem 3rem;
+    margin: 40px auto;
   }
 }
