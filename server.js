@@ -32,6 +32,8 @@ app.use(express.static("public"))
 /* ***********************
  * Routes
  *************************/
+/*Static routes */
+
 app.use(require("./routes/static"))
   
 // Index Route
@@ -40,11 +42,18 @@ app.get("/", utilities.handleErrors(baseController.buildHome))
 // Inventory routes
 app.use("/inv", inventoryRoute)
 
-// File Not Found Route - must be last route in list
-app.use(async (req, res, next) => {
-  next({status: 404})
-})
+// Intentional 500 error route (week 3- Task 3)
+app.get("/throw-error", utilities.handleErrors(async (req, res, next) => {
+  throw new Error("Intentional 500 error for testing")
+}))
 
+
+// File Not Found Route - must be last route in list
+app.use((req, res, next) => {
+  const err = new Error("Page Not Found")
+  err.status = 404
+  next(err)
+})
 /* ***********************
 * Express Error Handler
 * Place after all other middleware
@@ -52,9 +61,14 @@ app.use(async (req, res, next) => {
 app.use(async (err, req, res, next) => {
   let nav = await utilities.getNav()
   console.error(`Error at: "${req.originalUrl}": ${err.message}`)
-  if(err.status == 404){ message = err.message} else {message = 'Oh no! There was a crash. Maybe try a different route?'}
-  res.render("errors/error", {
-    title: err.status || 'Server Error',
+  
+  const status = err.status || 500
+  const message = status === 404 
+    ? err.message 
+    : "Oh no! There was a crash. Maybe try a different route?"
+
+  res.status(status).render("errors/error", {
+    title: status,
     message,
     nav
   })
@@ -73,3 +87,6 @@ const host = process.env.HOST
 app.listen(port, host, () => {
   console.log(`app listening on ${host}:${port}`)
 })
+/* ******************************************
+ * End of server.js file
+ *******************************************/
