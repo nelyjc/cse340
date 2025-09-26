@@ -1,5 +1,11 @@
 <!-- /* views/errors/error.ejs  -->
 <h1><%= title %></h1>
 <p>Oops! Something went wrong 😅</p>
-<img src="/images/errors/404error.jpg" alt="Funny 404 Error" style="max-width: 100%; height: auto;">
+
+<% if (title == 404) { %>
+  <img src="/images/errors/404error.jpg" alt="Funny 404 Error" style="max-width: 100%; height: auto;">
+<% } else { %>
+  <img src="/images/errors/500error.png" alt="Server Error" style="max-width: 100%; height: auto;">
+<% } %>
+
 <p>Maybe try going back to <a href="/">Home</a>?</p>
