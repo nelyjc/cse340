@@ -1,0 +1,35 @@
+<!-- views/account/register.ejs -->
+<h2><%= title %></h2>
+
+<!-- Flash message -->
+<% if (messages('notice').length > 0) { %>
+  <div class="flash-message"><%= messages('notice') %></div>
+<% } %>
+
+<main class="register-container">
+  <form action="/account/register" method="post" class="register-form">
+    <!-- First Name -->
+    <label for="account_firstname">First Name</label><br>
+    <input type="text" id="account_firstname" name="account_firstname" placeholder="Enter your first name" required><br>
+
+    <!-- Last Name -->
+    <label for="account_lastname">Last Name</label><br>
+    <input type="text" id="account_lastname" name="account_lastname" placeholder="Enter your last name" required><br>
+
+    <!-- Email -->
+    <label for="account_email">Email</label><br>
+    <input type="email" id="account_email" name="account_email" placeholder="Enter your email" required><br>
+
+    <!-- Password -->
+    <label for="account_password">Password</label><br>
+    <input type="password" id="account_password" name="account_password" placeholder="Enter your password" required><br>
+
+    <small>Password must be at least 12 characters, include 1 capital letter, 1 number, and 1 special character.</small><br><br>
+
+    <button type="submit">Register</button>
+  </form>
+
+  <p class="login-link">
+    Already have an account? <a href="/account/login">Login here</a>
+  </p>
+</main>
