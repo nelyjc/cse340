@@ -83,7 +83,7 @@ Util.buildVehicleDetailHTML = function(vehicle){
   detailHTML += `<p class="vehicle-description">${vehicle.inv_description}</p>`
   detailHTML += `<ul class="vehicle-specs">`
   detailHTML += `<li><strong>Color:</strong> ${vehicle.inv_color}</li>`
-  detailHTML += `<li><strong>Mileage:</strong> ${new Intl.NumberFormat('en-US').format(vehicle.inv_mileage)} miles</li>`
+  detailHTML += `<li><strong>Mileage:</strong> ${new Intl.NumberFormat('en-US').format(vehicle.inv_miles)} miles</li>`
   detailHTML += `<li><strong>Year:</strong> ${vehicle.inv_year}</li>`
   detailHTML += `<li><strong>VIN:</strong> ${vehicle.inv_vin}</li>`
   detailHTML += `</ul></div></div>`
