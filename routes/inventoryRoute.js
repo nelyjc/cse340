@@ -1,5 +1,6 @@
-/* routes/inventoryRoute.js */
-// Needed Resources 
+/* ******************************************
+ routes/inventoryRoute.js
+ *******************************************/
 const express = require("express")
 const router = new express.Router() 
 const invController = require("../controllers/invController.js")
@@ -10,6 +11,23 @@ router.get("/type/:classificationId", utilities.handleErrors(invController.build
 
 // Route to build single vehicle detail view   
 router.get("/detail/:invId", utilities.handleErrors(invController.buildInventoryDetail))
+
+// Management view
+router.get("/", utilities.handleErrors(invController.buildManagement))
+
+// Render add-classification form
+router.get("/add-classification", utilities.handleErrors(invController.buildAddClassification))
+
+// Handle form submission
+router.post(
+  "/add-classification", 
+    utilities.classificationValidator,  // server-side validation middleware
+    utilities.handleErrors(invController.addClassification)
+)
+// Render add-inventory form
+router.get("/add-inventory", invController.buildAddInventory)
+router.post("/add-inventory", invController.addInventory)
+
 
 module.exports = router
 

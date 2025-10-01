@@ -482,3 +482,177 @@ footer {
   background-color: #e67e22; /* brighter orange on hover */
   transform: scale(1.05);
 }
+/* adding new classification link styling on inventory management page */
+.management-options {
+  margin-top: 1rem;
+  font-size: 1.5rem;
+  color: #000000;
+}
+
+.management-options a {
+  color: #033e50;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.management-options a:hover {
+  text-decoration: underline;
+}
+/* Add Classification Form Container */
+.add-classification-container {
+  max-width: 500px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color: #fdfdfd;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  font-family: 'Arial', sans-serif;
+}
+
+/* Headings */
+.add-classification-container h1 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  color: #333;
+}
+
+/* Form labels */
+.add-classification-container label {
+  display: block;
+  margin-top: 1rem;
+  font-weight: bold;
+  color: #555;
+}
+
+/* Inputs */
+.add-classification-container input {
+  width: 100%;
+  padding: 0.6rem 1rem;
+  margin-top: 0.3rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 1rem;
+  box-sizing: border-box;
+}
+
+/* Submit button */
+.add-classification-container button {
+  display: block;
+  width: 100%;
+  padding: 0.75rem;
+  margin-top: 1.5rem;
+  background-color: #0066cc;
+  color: white;
+  font-size: 1rem;
+  font-weight: bold;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.add-classification-container button:hover {
+  background-color: #005bb5;
+}
+
+/* Flash messages */
+.flash-message {
+  padding: 0.75rem 1rem;
+  background-color: #d4edda;
+  color: #155724;
+  border-radius: 5px;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+/* Error messages */
+ul.errors {
+  list-style: none;
+  padding: 0;
+  margin: 1rem 0;
+  color: #c00;
+}
+/* End Add Classification Styles
+}
+
+/* Add Inventory Form Container */
+.add-inventory-container {
+  max-width: 700px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color: #fdfdfd;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  font-family: 'Arial', sans-serif;
+}
+
+/* Headings */
+.add-inventory-container h1 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  color: #333;
+}
+
+/* Form labels */
+.add-inventory-container label {
+  display: block;
+  margin-top: 1rem;
+  font-weight: bold;
+  color: #555;
+}
+
+/* Inputs and textarea */
+.add-inventory-container input,
+.add-inventory-container select,
+.add-inventory-container textarea {
+  width: 100%;
+  padding: 0.6rem 1rem;
+  margin-top: 0.3rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 1rem;
+  box-sizing: border-box;
+}
+
+.add-inventory-container textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+/* Submit button */
+.add-inventory-container button {
+  display: block;
+  width: 100%;
+  padding: 0.75rem;
+  margin-top: 1.5rem;
+  background-color: #0066cc;
+  color: white;
+  font-size: 1rem;
+  font-weight: bold;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.add-inventory-container button:hover {
+  background-color: #005bb5;
+}
+
+/* Flash message */
+.flash-message {
+  padding: 0.75rem 1rem;
+  background-color: #d4edda;
+  color: #155724;
+  border-radius: 5px;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+/* Error messages */
+ul.errors {
+  list-style: none;
+  padding: 0;
+  margin: 1rem 0;
+  color: #c00;
+}

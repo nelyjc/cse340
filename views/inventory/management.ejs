@@ -1,0 +1,23 @@
+<!-- // Inventory Management View// -->
+<main class="container">
+  <% if (messages && Object.keys(messages()).length > 0) { %>
+    <% Object.keys(messages()).forEach(type => { %>
+      <% messages()[type].forEach(msg => { %>
+        <div class="flash-message <%= type %>"><%= msg %></div>
+      <% }) %>
+    <% }) %>
+  <% } %>
+
+  <h1>Inventory Management</h1>
+
+  <div class="management-options">
+    <p>Select an option below:</p>
+  </div>
+
+  <ul class="management-options">
+    <li><a href="/inv/add-classification">Add New Classification</a></li>
+    <li><a href="/inv/add-inventory">Add New Inventory Item</a></li>
+  </ul>
+</main>
+
+<!-- End of Inventory Management View -->
