@@ -1,26 +1,33 @@
-// Account routes for login and registration//
 const express = require("express")
 const router = new express.Router()
 const utilities = require("../utilities")
 const accountController = require("../controllers/accountController")
 const regValidate = require('../utilities/account-validation')
 
-// Route for "My Account" link
-router.get("/", utilities.handleErrors(accountController.buildLogin))
+// Default account route (after login)
+router.get("/", utilities.handleErrors(accountController.accountHome))
 
 // Login view
 router.get("/login", utilities.handleErrors(accountController.buildLogin))
 
+// Process login request
+router.post(
+  "/login",
+  regValidate.loginRules(),
+  regValidate.checkLoginData,
+  utilities.handleErrors(accountController.accountLogin)
+)
+
 // Registration view
 router.get("/register", utilities.handleErrors(accountController.buildRegister))
 
-// Register new account//
-// Process the registration data//
+// Process registration request
 router.post(
   "/register",
-  regValidate.registationRules(),
+  regValidate.registrationRules(),
   regValidate.checkRegData,
   utilities.handleErrors(accountController.registerAccount)
 )
 
 module.exports = router
+// Export the router
