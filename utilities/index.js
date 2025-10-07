@@ -145,17 +145,32 @@ Util.checkJWTToken = (req, res, next) => {
    process.env.ACCESS_TOKEN_SECRET,
    function (err, accountData) {
     if (err) {
-     req.flash("Please log in")
+     req.flash("notice", "Please log in")
      res.clearCookie("jwt")
      return res.redirect("/account/login")
     }
     res.locals.accountData = accountData
-    res.locals.loggedin = 1
+    res.locals.loggedin = true
     next()
    })
  } else {
   next()
  }
+}
+
+
+/* ****************************************
+ *  Check Login
+ * ************************************ */
+Util.checkLogin = (req, res, next) => {
+  if (req.session.loggedin) {
+    res.locals.loggedin = true
+    res.locals.accountData = req.session.accountData
+    next()
+  } else {
+    req.flash("notice", "Please log in.")
+    return res.redirect("/account/")
+  }
 }
 
 
