@@ -5,6 +5,7 @@ const express = require("express")
 const router = new express.Router() 
 const utilities = require("../utilities/")
 const invController = require("../controllers/invController.js")
+const invValidate = require("../utilities/inventory-validation")
 
 
 // Route to build inventory by classification view
@@ -38,10 +39,28 @@ router.get("/getInventory/:classification_id", utilities.handleErrors(invControl
 // Route to build edit inventory view
 router.get("/edit/:inv_id", utilities.handleErrors(invController.editInventoryView));
 
+//Inventory update Route//
+router.post(
+  "/update/", 
+  invValidate.newInventoryRules(),
+  invValidate.checkUpdateData,
+  invController.updateInventory
+)
+
+/* ***********************
+ * Delete confirmation view
+ * *********************** */
+router.get("/delete/:inv_id", utilities.handleErrors(invController.buildDeleteConfirm))
+
+/* ***********************
+ * Delete inventory item
+ * *********************** */
+router.post("/delete", utilities.handleErrors(invController.deleteInventoryItem))
 // Intentional 500 error route
 router.get("/throw-error", utilities.handleErrors(async (req, res, next) => {
   throw new Error("This is an intentional 500 error for testing")
 }))
+
 // To test the 500 error handling, navigate to /inv/throw-error in browser */
 
 module.exports = router
