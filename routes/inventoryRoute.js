@@ -3,8 +3,9 @@
  *******************************************/
 const express = require("express")
 const router = new express.Router() 
-const invController = require("../controllers/invController.js")
 const utilities = require("../utilities/")
+const invController = require("../controllers/invController.js")
+
 
 // Route to build inventory by classification view
 router.get("/type/:classificationId", utilities.handleErrors(invController.buildByClassificationId))
@@ -12,8 +13,11 @@ router.get("/type/:classificationId", utilities.handleErrors(invController.build
 // Route to build single vehicle detail view   
 router.get("/detail/:invId", utilities.handleErrors(invController.buildInventoryDetail))
 
-// Management view
-router.get("/", utilities.handleErrors(invController.buildManagement))
+// // Management view
+// router.get("/", utilities.handleErrors(invController.buildManagement))
+
+// Inventory management page
+router.get("/", utilities.handleErrors(invController.buildManagementView));
 
 // Render add-classification form
 router.get("/add-classification", utilities.handleErrors(invController.buildAddClassification))
@@ -28,11 +32,13 @@ router.post(
 router.get("/add-inventory", invController.buildAddInventory)
 router.post("/add-inventory", invController.addInventory)
 
-
-module.exports = router
+// Route to get inventory items for a classification
+router.get("/getInventory/:classification_id", utilities.handleErrors(invController.getInventoryJSON));
 
 // Intentional 500 error route
 router.get("/throw-error", utilities.handleErrors(async (req, res, next) => {
   throw new Error("This is an intentional 500 error for testing")
 }))
 // To test the 500 error handling, navigate to /inv/throw-error in browser */
+
+module.exports = router

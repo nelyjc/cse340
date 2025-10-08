@@ -1,8 +1,10 @@
 <!-- // Inventory Management View// -->
+
 <main class="container">
-  <% if (messages && Object.keys(messages()).length > 0) { %>
-    <% Object.keys(messages()).forEach(type => { %>
-      <% messages()[type].forEach(msg => { %>
+  <!-- Flash messages -->
+  <% if (messages && Object.keys(messages).length > 0) { %>
+    <% Object.keys(messages).forEach(type => { %>
+      <% messages[type].forEach(msg => { %>
         <div class="flash-message <%= type %>"><%= msg %></div>
       <% }) %>
     <% }) %>
@@ -12,12 +14,30 @@
 
   <div class="management-options">
     <p>Select an option below:</p>
+    <ul>
+      <li><a href="/inv/add-classification">Add New Classification</a></li>
+      <li><a href="/inv/add-inventory">Add New Inventory Item</a></li>
+    </ul>
   </div>
 
-  <ul class="management-options">
-    <li><a href="/inv/add-classification">Add New Classification</a></li>
-    <li><a href="/inv/add-inventory">Add New Inventory Item</a></li>
-  </ul>
-</main>
+  <!-- Manage Inventory Section -->
+  <h2>Manage Inventory</h2>
+  <p>Select a classification from the list to see inventory items below.</p>
 
-<!-- End of Inventory Management View -->
+  <!-- Classification select list -->
+  <form>
+    <div class="drop-down">
+    <label for="classificationList">Classification:</label>
+    <%- classificationSelect %>
+     </div>
+  </form>
+
+  <!-- Empty table for inventory items -->
+  <table id="inventoryDisplay"></table>
+
+  <!-- Message if JS is disabled -->
+  <noscript>JavaScript must be enabled to use this page.</noscript>
+
+  <!-- Connect inventory.js -->
+  <script src="../../js/inventory.js"></script>
+</main>
