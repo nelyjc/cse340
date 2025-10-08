@@ -35,6 +35,9 @@ router.post("/add-inventory", invController.addInventory)
 // Route to get inventory items for a classification
 router.get("/getInventory/:classification_id", utilities.handleErrors(invController.getInventoryJSON));
 
+// Route to build edit inventory view
+router.get("/edit/:inv_id", utilities.handleErrors(invController.editInventoryView));
+
 // Intentional 500 error route
 router.get("/throw-error", utilities.handleErrors(async (req, res, next) => {
   throw new Error("This is an intentional 500 error for testing")
@@ -42,3 +45,4 @@ router.get("/throw-error", utilities.handleErrors(async (req, res, next) => {
 // To test the 500 error handling, navigate to /inv/throw-error in browser */
 
 module.exports = router
+

@@ -748,3 +748,44 @@ ul.errors {
 #inventoryDisplay a:hover {
   text-decoration: underline;
 }
+/* Edit Inventory / Modify Vehicle */
+.edit-inventory-container {
+  max-width: 900px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+  font-family: 'Arial', sans-serif;
+}
+
+.edit-inventory-container h1 {
+  text-align: center;
+  margin-bottom: 2rem;
+  color: #222;
+  font-size: 1.8rem;
+}
+
+.edit-inventory-container .alert {
+  padding: 0.75rem 1rem;
+  margin-bottom: 1rem;
+  border-radius: 6px;
+  font-size: 0.95rem;
+}
+
+.alert-success {
+  background-color: #d1e7dd;
+  color: #0f5132;
+  border: 1px solid #badbcc;
+}
+
+.alert-error {
+  background-color: #f8d7da;
+  color: #842029;
+  border: 1px solid #f5c2c7;
+}
+
+.edit-inventory-container .form-group {
+  margin-bottom: 1.2rem;
+}
+
