@@ -2,66 +2,66 @@
  routes/inventoryRoute.js
  *******************************************/
 const express = require("express")
-const router = new express.Router() 
+const router = express.Router()
 const utilities = require("../utilities/")
-const invController = require("../controllers/invController.js")
-const invValidate = require("../utilities/inventory-validation")
+const invCont = require("../controllers/invController.js")
+const invValidate = require("../utilities/inventory-validation.js")
+const authorize = require("../utilities/authorize.js")
 
+/* ******************************************
+ * Public Routes (No authorization required)
+ *******************************************/
 
-// Route to build inventory by classification view
-router.get("/type/:classificationId", utilities.handleErrors(invController.buildByClassificationId))
+// Build inventory by classification view
+router.get("/type/:classificationId", utilities.handleErrors(invCont.buildByClassificationId))
 
-// Route to build single vehicle detail view   
-router.get("/detail/:invId", utilities.handleErrors(invController.buildInventoryDetail))
+// Build single vehicle detail view
+router.get("/detail/:invId", utilities.handleErrors(invCont.buildInventoryDetail))
 
-// // Management view
-// router.get("/", utilities.handleErrors(invController.buildManagement))
+// Get inventory items as JSON (used for dynamic dropdowns, etc.)
+router.get("/getInventory/:classification_id", utilities.handleErrors(invCont.getInventoryJSON))
 
-// Inventory management page
-router.get("/", utilities.handleErrors(invController.buildManagementView));
+/* ******************************************
+ * Admin Routes (Employee/Admin only)
+ *******************************************/
 
-// Render add-classification form
-router.get("/add-classification", utilities.handleErrors(invController.buildAddClassification))
+// Inventory management view
+router.get("/", authorize.checkInventoryAccess, utilities.handleErrors(invCont.buildManagementView))
 
-// Handle form submission
+// Add-classification
+router.get("/add-classification", authorize.checkInventoryAccess, utilities.handleErrors(invCont.buildAddClassification))
 router.post(
-  "/add-classification", 
-    utilities.classificationValidator,  // server-side validation middleware
-    utilities.handleErrors(invController.addClassification)
+  "/add-classification",
+  authorize.checkInventoryAccess,
+  utilities.classificationValidator,
+  utilities.handleErrors(invCont.addClassification)
 )
-// Render add-inventory form
-router.get("/add-inventory", invController.buildAddInventory)
-router.post("/add-inventory", invController.addInventory)
 
-// Route to get inventory items for a classification
-router.get("/getInventory/:classification_id", utilities.handleErrors(invController.getInventoryJSON));
+// Add-inventory
+router.get("/add-inventory", authorize.checkInventoryAccess, utilities.handleErrors(invCont.buildAddInventory))
+router.post("/add-inventory", authorize.checkInventoryAccess, invCont.addInventory)
 
-// Route to build edit inventory view
-router.get("/edit/:inv_id", utilities.handleErrors(invController.editInventoryView));
-
-//Inventory update Route//
+// Edit inventory
+router.get("/edit/:inv_id", authorize.checkInventoryAccess, utilities.handleErrors(invCont.editInventoryView))
 router.post(
-  "/update/", 
+  "/edit/:inv_id",
+  authorize.checkInventoryAccess,
   invValidate.newInventoryRules(),
   invValidate.checkUpdateData,
-  invController.updateInventory
+  invCont.updateInventory
 )
 
-/* ***********************
- * Delete confirmation view
- * *********************** */
-router.get("/delete/:inv_id", utilities.handleErrors(invController.buildDeleteConfirm))
+// Delete inventory
+router.get("/delete/:inv_id", authorize.checkInventoryAccess, utilities.handleErrors(invCont.buildDeleteConfirm))
+router.post("/delete", authorize.checkInventoryAccess, invCont.deleteInventoryItem)
 
-/* ***********************
- * Delete inventory item
- * *********************** */
-router.post("/delete", utilities.handleErrors(invController.deleteInventoryItem))
-// Intentional 500 error route
+/* ******************************************
+ * Error Testing Route
+ *******************************************/
+
+// Intentional 500 error for testing
 router.get("/throw-error", utilities.handleErrors(async (req, res, next) => {
   throw new Error("This is an intentional 500 error for testing")
 }))
 
-// To test the 500 error handling, navigate to /inv/throw-error in browser */
-
 module.exports = router
-

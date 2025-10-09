@@ -775,3 +775,29 @@ ul.errors {
 .delete-btn:hover {
   background-color: #c9302c;
 }
+.account-info, .inventory-management {
+  margin: 2em 0;
+  padding: 1.5em;
+  background: #f9f9f9;
+  border-radius: 8px;
+}
+
+.btn {
+  display: inline-block;
+  padding: 0.6em 1em;
+  margin-right: 1em;
+  background: #007bff;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 5px;
+}
+
+.btn-secondary {
+  background: #6c757d;
+}
+
+.btn-outline {
+  background: transparent;
+  border: 1px solid #007bff;
+  color: #007bff;
+}

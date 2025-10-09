@@ -18,6 +18,8 @@ const pool = require('./database/')
 const accountRoute = require("./routes/accountRoute")
 const bodyParser = require("body-parser")
 const cookieParser = require("cookie-parser")
+const checkLogin = require("./utilities/checkLogin")
+const authorize = require("./utilities/authorize");
 
 
 /* ***********************
@@ -25,8 +27,8 @@ const cookieParser = require("cookie-parser")
  * ************************/
  app.use(session({
   store: new (require('connect-pg-simple')(session))({
-    createTableIfMissing: true,
     pool,
+    createTableIfMissing: true,
   }),
   secret: process.env.SESSION_SECRET,
   resave: true,
@@ -40,17 +42,20 @@ app.use(bodyParser.urlencoded({ extended: true })) // for parsing application/x-
 
 // Express Messages Middleware
 app.use(require('connect-flash')())
-app.use(function(req, res, next){
+
+// Make flash messages available in all views
+app.use((req, res, next) => {
   res.locals.messages = require('express-messages')(req, res)
   next()
 })
-
 
 // Cookie parser middleware
 app.use(cookieParser())
 // JWT Middleware 
 app.use(utilities.checkJWTToken)
 
+// Middleware to decode JWT and make loggedin/account available to all views
+app.use(authorize.checkJWTToken);
 
 
 
@@ -71,9 +76,6 @@ app.use(express.static("public"))
 /* ***********************
  * Routes
  *************************/
-/*Static routes */
-
-app.use(require("./routes/static"))
   
 // Index Route
 app.get("/", utilities.handleErrors(baseController.buildHome))
@@ -82,17 +84,11 @@ app.get("/", utilities.handleErrors(baseController.buildHome))
 
 app.use("/inv", invRoute)
 
+
 // Account routes
 
-app.use("/account", require("./routes/accountRoute"))
+app.use("/account", accountRoute)
 
-
-
-// Intentional 500 error route (week 3- Task 3)
-
-app.get("/throw-error", utilities.handleErrors(async (req, res, next) => {
-  throw new Error("Intentional 500 error for testing")
-}))
 
 
 // File Not Found Route - must be last route in list
@@ -134,7 +130,15 @@ const host = process.env.HOST || "0.0.0.0"
  *************************/
 app.listen(port, host, () => {
   console.log(`app listening on ${host}:${port}`)
+
+
 })
+// Intentional 500 error route (week 3- Task 3)
+
+app.get("/throw-error", utilities.handleErrors(async (req, res, next) => {
+  throw new Error("Intentional 500 error for testing")
+}))
+
 /* ******************************************
  * End of server.js file
  *******************************************/

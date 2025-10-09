@@ -1,4 +1,7 @@
 /* controllers/invController.js */
+
+
+
 const invModel = require("../models/inventory-model")
 const utilities = require("../utilities")
 const { body, validationResult } = require('express-validator')
@@ -192,21 +195,19 @@ invCont.addInventory = [
 /* ****************************************
  *  Build Inventory Management View
  **************************************** */
-invCont.buildManagementView = async (req, res, next) => {
-  try {
-    const nav = await utilities.getNav();
-    const classificationSelect = await utilities.buildClassificationList();
 
-    res.render('inventory/management', {
-      title: 'Inventory Management',
-      nav,
-      classificationSelect,
-      messages: req.flash(),
-    });
-  } catch (error) {
-    next(error);
-  }
-};
+
+invCont.buildManagementView = async (req, res, next) => {
+  const nav = await utilities.getNav()
+  const classificationSelect = await utilities.buildClassificationList()
+  res.render('inventory/management', {
+    title: 'Inventory Management',
+    nav,
+    classificationSelect,
+    messages: req.flash(),
+  })
+}
+
 
 /* ****************************************
  *  Return Inventory by Classification As JSON
@@ -365,6 +366,8 @@ async function deleteInventoryItem(req, res, next) {
  **************************************** */
 invCont.buildDeleteConfirm = buildDeleteConfirm
 invCont.deleteInventoryItem = deleteInventoryItem
+
+
 
 
 module.exports = invCont
