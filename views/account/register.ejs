@@ -2,17 +2,13 @@
 <h2><%= title %></h2>
 
 <!-- Flash message -->
-<% if (messages('notice').length > 0) { %>
-  <div class="flash-message"><%= messages('notice') %></div>
-<% } %>
-<% if (errors) { %>
-  <ul class="notice">
- <% errors.array().forEach(error => { %>
-   <li><%= error.msg %></li>
-<%  }) %>
- </ul>
-<% } %>
-
+  <% if (errors && Array.isArray(errors)) { %>
+    <ul class="notice">
+      <% errors.forEach(error => { %>
+        <li><%= error.msg %></li>
+      <% }) %>
+    </ul>
+  <% } %>
 
 <main class="register-container">
   <form action="/account/register" method="post" class="register-form">

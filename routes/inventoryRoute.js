@@ -26,7 +26,7 @@ router.get("/getInventory/:classification_id", utilities.handleErrors(invCont.ge
  *******************************************/
 
 // Inventory management view
-router.get("/", authorize.checkInventoryAccess, utilities.handleErrors(invCont.buildManagementView))
+router.get("inv/management", authorize.checkInventoryAccess, utilities.handleErrors(invCont.buildManagementView))
 
 // Add-classification
 router.get("/add-classification", authorize.checkInventoryAccess, utilities.handleErrors(invCont.buildAddClassification))

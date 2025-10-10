@@ -1,7 +1,5 @@
 /* controllers/invController.js */
 
-
-
 const invModel = require("../models/inventory-model")
 const utilities = require("../utilities")
 const { body, validationResult } = require('express-validator')
