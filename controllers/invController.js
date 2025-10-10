@@ -1,6 +1,7 @@
 /* controllers/invController.js */
 
 const invModel = require("../models/inventory-model")
+const favoritesModel = require("../models/favorites-model")
 const utilities = require("../utilities")
 const { body, validationResult } = require('express-validator')
 
@@ -71,27 +72,58 @@ invCont.addClassification = async (req, res, next) => {
 /* ***************************
  *  Build vehicle detail view
  * ************************** */
+// invCont.buildInventoryDetail = async function (req, res, next) {
+//   try {
+//     const invId = req.params.invId
+//     const vehicle = await invModel.getInventoryById(invId)
+//     if (!vehicle) {
+//       return res.status(404).render("errors/404", { message: "Vehicle not found" })
+//     }
+
+//     const nav = await utilities.getNav()
+//     const vehicleDetailHTML = await utilities.buildVehicleDetailHTML(vehicle)
+
+//     res.render("inventory/detail", {
+//       title: `${vehicle.inv_make} ${vehicle.inv_model}`,
+//       nav,
+//       vehicleDetailHTML
+//     })
+//   } catch (error) {
+//     console.error("buildInventoryDetail error:", error)
+//     res.status(500).render("errors/500", { message: "Server error" })
+//   }
+// }
 invCont.buildInventoryDetail = async function (req, res, next) {
   try {
-    const invId = req.params.invId
-    const vehicle = await invModel.getInventoryById(invId)
+    const invId = req.params.invId;
+    const vehicle = await invModel.getInventoryById(invId);
     if (!vehicle) {
-      return res.status(404).render("errors/404", { message: "Vehicle not found" })
+      return res.status(404).render("errors/404", { message: "Vehicle not found" });
     }
 
-    const nav = await utilities.getNav()
-    const vehicleDetailHTML = await utilities.buildVehicleDetailHTML(vehicle)
+    const nav = await utilities.getNav(res.locals.loggedin);
+    const vehicleDetailHTML = await utilities.buildVehicleDetailHTML(vehicle);
+
+    // Check if the vehicle is a favorite for the logged-in user
+    const userId = res.locals.account?.account_id; // get logged in user
+    let isFavorite = false;
+    if (userId) {
+      isFavorite = await favoritesModel.checkIfFavorite(userId, vehicle.inv_id);
+    }
 
     res.render("inventory/detail", {
       title: `${vehicle.inv_make} ${vehicle.inv_model}`,
       nav,
-      vehicleDetailHTML
-    })
+      vehicleDetailHTML,
+      loggedin: !!userId,
+      isFavorite,
+      vehicle, // pass vehicle data to the view
+    });
   } catch (error) {
-    console.error("buildInventoryDetail error:", error)
-    res.status(500).render("errors/500", { message: "Server error" })
+    console.error("buildInventoryDetail error:", error);
+    res.status(500).render("errors/500", { message: "Server error" });
   }
-}
+};
 
 /* ***************************
  *  Render Add Inventory Form

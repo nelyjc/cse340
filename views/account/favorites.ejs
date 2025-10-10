@@ -1,0 +1,28 @@
+<section class="favorites">
+  <h1>My Favorite Vehicles</h1>
+
+  <% if (favorites.length === 0) { %>
+    <p>You have no favorite vehicles yet.</p>
+  <% } else { %>
+    <div class="favorites-grid">
+      <% favorites.forEach(fav => { %>
+        <div class="favorite-card">
+          <!-- Thumbnail Image -->
+          <div class="favorite-thumbnail">
+            <img src="<%= fav.inv_image %>" alt="<%= fav.inv_make %> <%= fav.inv_model %>">
+          </div>
+
+          <!-- Vehicle Info -->
+          <h3><%= fav.inv_make %> <%= fav.inv_model %> (<%= fav.inv_year %>)</h3>
+          <p>Price: $<%= fav.inv_price %></p>
+          
+          <!-- Buttons -->
+          <div class="favorite-buttons">
+            <a href="/inv/detail/<%= fav.inv_id %>" class="btn view-btn">View Details</a>
+            <a href="/favorites/remove/<%= fav.inv_id %>" class="btn remove-btn">Remove</a>
+          </div>
+        </div>
+      <% }) %>
+    </div>
+  <% } %>
+</section>

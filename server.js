@@ -20,7 +20,7 @@ const bodyParser = require("body-parser")
 const cookieParser = require("cookie-parser")
 const checkLogin = require("./utilities/checkLogin")
 const authorize = require("./utilities/authorize");
-
+const favoritesRoute = require("./routes/favoritesRoute");
 
 /* ***********************
  * Middleware
@@ -76,28 +76,19 @@ app.use(express.static("public"))
 /* ***********************
  * Routes
  *************************/
-  
 // Index Route
 app.get("/", utilities.handleErrors(baseController.buildHome))
 
 // Inventory routes
-
 app.use("/inv", invRoute)
 
-//
-
 // Account routes
-
 app.use("/account", accountRoute)
 
+// Favorite routes
+app.use("/favorites", favoritesRoute)
 
 
-// File Not Found Route - must be last route in list
-app.use((req, res, next) => {
-  const err = new Error("Page Not Found")
-  err.status = 404
-  next(err)
-})
 /* ***********************
 * Express Error Handler
 * Place after all other middleware

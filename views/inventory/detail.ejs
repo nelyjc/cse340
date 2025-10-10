@@ -1,4 +1,15 @@
-<!-- views/inventory/detail.ejs -->
 <section class="vehicle-detail">
   <%- vehicleDetailHTML %>
+
+  <% if (loggedin) { %>
+    <% if (isFavorite) { %>
+      <p>💖 This vehicle is already in your favorites.</p>
+      <a href="/favorites/remove/<%= vehicle.inv_id %>" class="btn favorite-btn remove-btn">Remove from Favorites</a>
+    <% } else { %>
+      <a href="/favorites/add/<%= vehicle.inv_id %>" class="btn favorite-btn add-btn">Add to Favorites ❤️</a>
+    <% } %>
+
+    <!-- Direct link to view all favorites -->
+    <a href="/favorites" class="btn view-favorites-btn">View My Favorites 💖</a>
+  <% } %>
 </section>

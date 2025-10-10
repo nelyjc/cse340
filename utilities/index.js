@@ -24,7 +24,9 @@ Util.getNav = async function () {
       row.classification_name +
       "</a>"
     list += "</li>"
-  })
+  });
+  
+
   list += "</ul>"
   return list
 }
