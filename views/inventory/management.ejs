@@ -1,5 +1,3 @@
-<!-- // Inventory Management View// -->
-
 <main class="container">
   <!-- Flash messages -->
   <% if (messages && Object.keys(messages).length > 0) { %>
@@ -12,6 +10,7 @@
 
   <h1>Inventory Management</h1>
 
+  <!-- Management options -->
   <div class="management-options">
     <p>Select an option below:</p>
     <ul>
@@ -22,22 +21,37 @@
 
   <!-- Manage Inventory Section -->
   <h2>Manage Inventory</h2>
-  <p>Select a classification from the list to see inventory items below.</p>
+  <p>Select a classification to see inventory items below.</p>
 
   <!-- Classification select list -->
-  <form>
+  <form id="classificationForm">
     <div class="drop-down">
-    <label for="classificationList">Classification:</label>
-    <%- classificationSelect %>
-     </div>
+      <label for="classificationList">Classification:</label>
+      <%- classificationSelect %>
+    </div>
   </form>
 
-  <!-- Empty table for inventory items -->
-  <table id="inventoryDisplay"></table>
+  <!-- Inventory table -->
+  <table id="inventoryDisplay" class="inventory-table">
+    <thead>
+      <tr>
+        <th>Make</th>
+        <th>Model</th>
+        <th>Year</th>
+        <th>Price</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- JS will populate this -->
+    </tbody>
+  </table>
 
-  <!-- Message if JS is disabled -->
-  <noscript>JavaScript must be enabled to use this page.</noscript>
-
-  <!-- Connect inventory.js -->
-  <script src="/js/inventory.js"></script>
+  <noscript>
+    <p>JavaScript must be enabled to use this page.</p>
+  </noscript>
 </main>
+
+<!-- Link to your JS -->
+<script src="/js/management.js"></script>
+
